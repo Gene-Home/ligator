@@ -1,0 +1,12 @@
+{
+	"name":"member",
+	"description":"I wanna freaking add this for fuk sake!"
+	"variables":{
+      "user_name":{"category":"general","type":"S"},
+ 		"status":{"category":"statuscode","type":"C","codes":{
+   			"0":"inactive",
+   			"1":"active"}
+   		}
+   		
+	}
+}
