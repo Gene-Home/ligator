@@ -1,14 +1,20 @@
-<div class="panel panel-primary">
-	<div class="panel-heading">
-  		<h3 class="panel-title">Login</h3>
-  			
-    		<div class="clearfix"></div>
-  	</div>
-  		<div  class="panel-body">
-  			<form ng-submit="login()">
-  			<input type="text" class="pure-input-1-3" placeholder="User" name="token" ng-model="userName" />
-  			<input type="text" class="pure-input-1-3" placeholder="pw" name="tokens" ng-model="password" />
-  			<input type = 'submit'/>
+<link rel="stylesheet" href="styles/signin.css">
+<div class="container">
+  			<form ng-show='! reminding' ng-submit="login()" class="form-signin" role="form">
+        		<h2 class="form-signin-heading">Sign In</h2>
+  				<input type="text" class="form-control" placeholder="User" name="token" ng-model="userName" />
+  				<input type="text" class="form-control" placeholder="Password" name="tokens" ng-model="password" />
+  				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+  				<br />
+  				<a ng-click="reminding=true">Forgot Password</a>	
   			</form>
-  		</div>
+  			<form ng-show="reminding" class="form-signin" ng-submit="remindPassword()">
+  			    <p>
+  			    	Please submit your email address and you will be sent instructions on how to reset your password.
+  			    </p>
+  				<input type="text" class="form-control" placeholder="email" ng-model="email" />
+  				<button class="btn btn-primary btn-block" type="submit">Reset Password</button>
+  				<button class="btn btn-primary btn-block" ng-click="reminding=false">Cancel</button>
+  				{{reminding}}
+  			</form>
 </div>

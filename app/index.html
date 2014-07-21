@@ -13,6 +13,7 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    
     <!-- endbuild -->
   </head>
   <body ng-app="ligatorApp">
@@ -23,24 +24,31 @@
     <!-- Add your site or application content here -->
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
+        <ul class="nav nav-pills pull-left">
           <li ui-sref-active="active"><a ui-sref="index">Home</a></li>
-          <li ui-sref-active="active"><a ui-sref="about">About</a></li>
-          <li ui-sref-active="active"><a ui-sref="login">Login</a></li>
-          <li ui-sref-active="active"><a ui-sref="signup">Sign Up</a></li>
+          <li ui-sref-active="active" ng-show="! currentUser"><a ui-sref="login">Login</a></li>
+          <li ui-sref-active="active" ng-show="currentUser"><a ui-sref="userHome">Me</a></li>
+          <li ui-sref-active="active" ng-show="! currentUser"><a ui-sref="signup">Sign Up</a></li>
         </ul>
-        <h3 class="text-muted">ligator</h3>
+        <div>
+          <ul ng-show="currentUser" class="nav nav-pills pull-right">
+            <li>{{currentUser}}</li>
+            <li ui-sref-active="active"><a ui-sref="logout">Sign Out</a></li>
+          </ul>
+        </div>
       </div>
 
       <div ng-view=""></div>
-      <div ui-view></div>
+      <div ui-view>
+      </div>
       <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        
       </div>
     </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<!--
      <script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -50,7 +58,7 @@
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
     </script>
-
+-->
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -68,6 +76,7 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-base64/angular-base64.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- My Manually Added stuff becuase it is constantly and annoyingly being
@@ -78,8 +87,13 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/controllers/auth_controller.js"></script>
+        <script src="scripts/controllers/login_controller.js"></script>
+        <script src="scripts/controllers/signup_controller.js"></script>
+        <script src="scripts/controllers/userhome_controller.js"></script>
+        <script src="scripts/controllers/confirmation_controller.js"></script>
+        <script src="scripts/controllers/forgotten_password_controller.js"></script>
         <script src="scripts/services/genehiveservice.js"></script>
+        <script src="scripts/services/ligatorservice.js"></script>
         <!-- endbuild -->
 </body>
 </html>

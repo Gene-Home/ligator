@@ -1,0 +1,39 @@
+hello there mr user {{currentuser}}
+<input type="text" ng-model="currentuser">
+<div>
+	<h3>Your Profile 
+		<button type='button' ng-click="showEditProfile()">
+			Edit Profile		
+		</button>
+	</h3>
+	<ul>
+	<li>
+	{{userProfile.description}}
+	</li>
+	<li>
+		{{userProfile.offering}}
+	</li>
+	<li>
+		{{userProfile.seeking}}
+	</li>
+	</ul>
+
+	<ul ng-repeat "t in userProfile.tags">
+		<li>{{t}}</li>
+	</ul>
+		
+	{{things.z}}
+	<input ng-model="things.xx" type="text">
+	<input ng-model="things.yy" type="text">
+	{{adder()}}
+</div>
+<div>
+	<h3>My Projects </h3>
+	<ul>
+	</ul>
+</div>
+<div>
+ <pre>
+   {{ userProfile | json}}
+ </pre>
+</div>

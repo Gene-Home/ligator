@@ -1,0 +1,20 @@
+<ol class="breadcrumb">
+    <li><a ng-click="showUserHome()">Home: {{currentUser}}</a></li>
+    <li class="active">Edit Profile</li>
+ </ol>
+<form ng-submit="updateProfile()">
+ 	<input type="text" ng-model="userProfile.description">
+ 	<input type="text" ng-model="userProfile.offering">
+ 	<input type="text" ng-model="userProfile.seeking">
+ 	<input type="text" ng-model="newTag.value">
+	<button type="button" ng-click="addTag()">Add Tag</button>
+	<input type = 'submit'/>
+</form>
+<div>
+ <pre>
+   {{ userProfile | json}}
+ </pre>
+ <pre>
+ 	{{newTag.value}}
+ </pre>
+</div>
