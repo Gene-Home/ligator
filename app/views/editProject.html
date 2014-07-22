@@ -1,0 +1,17 @@
+<ol class="breadcrumb">
+    <li><a ng-click="showUserHome()">Home: {{currentUser}}</a></li>
+    <li class="active">Edit Project</li>
+ </ol>
+<form ng-submit="addProject()">
+	<label>Title</label>
+	<input type="text" ng-model="userProject.title">
+	<label>Description</label>
+ 	<input type="text" ng-model="userProject.description">
+ 	<label>Public? sorry hard coded for the moment</label>
+	<input type = 'submit'/>
+</form>
+<div>
+ <pre>
+   {{ userProject | json}}
+ </pre>
+</div>
