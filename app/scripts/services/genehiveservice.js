@@ -35,7 +35,8 @@ geneHiveServices.factory('EntityService',['$resource',
     	return $resource('/GeneHive/api/v2/Entities/:ename', {}, {
       		query: {method:'GET'},
       		update: {method:'PUT'},
-      		create: {method:'POST'}
+      		create: {method:'POST'},
+          query:{method:'GET', isArray:true},
     	});
   	}]
  );// end User service
@@ -116,7 +117,6 @@ geneHiveServices.service('SignUpService',['$q','$http',
             $cookieStore.remove('authdata');
             $http.defaults.headers.common.Authorization = 'Basic ';
       };
-      this.currentUsername;
       this.getCurrentUsername = function(){
         return this.currentUsername;
       }
@@ -145,13 +145,14 @@ geneHiveServices.service('SignUpService',['$q','$http',
       this.login = function(username,password){
     	 var deferred = $q.defer();
     	 setCredentials(username,password);
-        $rootScope.currentUser = angular.copy(username);
+        
        
         this.currentUsername = username;
  		   $http({method: 'GET', url: '/GeneHive/api/v2/CheckPassword',params:{username:username,password:password}}).
     		success(function(data, status, headers, config) {
     			if(data['correct']){
-
+            // set the current user to the name that was sent
+            $rootScope.currentUser = config.params.username;    
     				$http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');			
     				deferred.resolve();	
     			}else{

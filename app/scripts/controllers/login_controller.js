@@ -8,21 +8,21 @@ angular.module('ligatorApp')
       $scope.login = function(){
     	 var uname = $scope.userName;
     	 var password = $scope.password;
-
+       $scope.bad_login = false;
 
     	 AuthService.login(uname,password)
     		  .then(function success(data) {
             // show the users profile
-            // this should hand off to another state
-            // profile view state
-            //$rootScope.currentUser = data;
+            $scope.bad_login = false;
             $state.go('userHome');
   					console.log('Success!', data);
+
 			 }, function error(msg) {
             // let him know that he does not have one
             // if the code is 2 
             // otherwise something is broken 
-  		  		console.error('Failure!', msg);
+  		  		console.error('Login Failure!', msg);
+            $scope.bad_login = true;
 			 });
     }// end login
 
@@ -37,15 +37,12 @@ angular.module('ligatorApp')
       })
     };// end createClass
 
-
-
-    if($state.current.data.logging_in){
-        $scope.login();
-      } else{
-        $scope.logout();
-      }
-      $scope.logout = function(){
+    $scope.logout = function(){
         AuthService.logout();
-
     }
+
+    if(! $state.current.data.logging_in){
+        $scope.logout();
+      } 
+      
   }]);

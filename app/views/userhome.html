@@ -1,36 +1,25 @@
-hello there mr user {{currentuser}}
-<input type="text" ng-model="currentuser">
 <div>
-	<h3>Your Profile 
-		<button type='button' ng-click="showEditProfile()">
-			Edit Profile		
-		</button>
-	</h3>
-	<ul>
-	<li>
-	{{userProfile.description}}
-	</li>
-	<li>
-		{{userProfile.offering}}
-	</li>
-	<li>
-		{{userProfile.seeking}}
-	</li>
-	</ul>
-
-	<ul ng-repeat "t in userProfile.tags">
-		<li>{{t}}</li>
-	</ul>
-		
-	{{things.z}}
-	<input ng-model="things.xx" type="text">
-	<input ng-model="things.yy" type="text">
-	{{adder()}}
+	<h3>Your Profile <a href="#" ng-click="showEditProfile()">(edit)</a></h3>
+	<h4>Your Description</h4>	
+	<p>{{userProfile.description}}</p>
+	<h4>Your Offering</h4>
+	<p>{{userProfile.offering}}</p>
+	<h4>You are Seeking</h4>
+	<p>{{userProfile.seeking}}</p>
+	
 </div>
 <div>
-	<h3>My Projects </h3>
-	<ul>
-	</ul>
+	<h3>My Projects <a href="#" ng-click="showEditProject()">add</a></h3>
+	<table>
+		<tbody ng-repeat="p in userProjects" >
+			<tr>
+			<td>
+				<b>{{p.title}}</b><br />
+				<p>{{p.description}}</p>
+			</td>
+			</tr>	
+		</tbody> 
+	</table>
 </div>
 <div>
  <pre>

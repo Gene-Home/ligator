@@ -3,11 +3,13 @@
     <li class="active">Edit Profile</li>
  </ol>
 <form ng-submit="updateProfile()">
+	<label>Description</label>
  	<input type="text" ng-model="userProfile.description">
+ 	<label>Offering</label>
  	<input type="text" ng-model="userProfile.offering">
+ 	<label>Seeking</label>
  	<input type="text" ng-model="userProfile.seeking">
- 	<input type="text" ng-model="newTag.value">
-	<button type="button" ng-click="addTag()">Add Tag</button>
+
 	<input type = 'submit'/>
 </form>
 <div>

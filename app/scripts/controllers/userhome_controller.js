@@ -10,11 +10,16 @@ angular.module('ligatorApp')
     // than directly on $scope itself .. not sure why
     $scope.newTag = {};
     $scope.userProfile = {class:'profile'};
+    $scope.userProject = {class: 'project'};
+
+
     $scope.loadUser = function(){
       ProfileService.getProfile($rootScope.currentUser).then(
         function(success){
           // returns the profile
           $scope.userProfile = success;
+          //then we load the projects
+          $scope.loadProjects();
         },
         function(failed){
           // we really should know if it was not there
@@ -23,7 +28,9 @@ angular.module('ligatorApp')
         }
         )
     }
+
     $scope.loadUser();
+    
     $scope.addTag = function(){
       if(!$scope.userProfile.tags ){
         $scope.userProfile.tags = [];
@@ -38,17 +45,25 @@ angular.module('ligatorApp')
     $scope.getView = function(){
       if ($scope.subview == 'showHome'){
           return 'views/userhome.html'
-      }else{
+      }
+      if($scope.subview =='editProfile'){
         return 'views/editProfile.html'
+      }
+      if($scope.subview == 'editProject'){
+        return 'views/editProject.html'
       }
     }
 
     $scope.showUserHome = function(){
+      // load the projects
+      $scope.loadProjects();
       $scope.subview = 'showHome';
     }
     $scope.showEditProfile = function(){
       $scope.subview = 'editProfile';
-
+    }
+    $scope.showEditProject = function(){
+      $scope.subview = 'editProject'
     }
     $scope.updateProfile = function(){
       // check to see if this is to create 
@@ -84,6 +99,31 @@ angular.module('ligatorApp')
 
       )
     };
+    $scope.addProject = function(){
+      $scope.userProject.name = $rootScope.currentUser + $scope.userProject.title;
+      $scope.userProject.status = "0";
+      EntityService.create({},$scope.userProject).$promise.then(
+        function(success){
+          $scope.showUserHome();     
+          //alert('good line 32 ' + success)
+        },
+        function(failure){
+          alert('bad line 35 ' + failure)
+        }
+
+      )   
+    }
+    $scope.loadProjects = function(){
+      
+      EntityService.query({status:0}).$promise.then(
+        function(success){
+        $scope.userProjects = success;    
+        },
+        function(failure){
+          alert("BAD PROJECTS " + failure)
+        }
+        )
+    }
     $scope.things = {};
     $scope.things.xx = 1;
     $scope.things.yy = 2;

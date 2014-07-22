@@ -23,19 +23,23 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header">
+      <div class="navbar navbar-default">
         <ul class="nav nav-pills pull-left">
           <li ui-sref-active="active"><a ui-sref="index">Home</a></li>
           <li ui-sref-active="active" ng-show="! currentUser"><a ui-sref="login">Login</a></li>
-          <li ui-sref-active="active" ng-show="currentUser"><a ui-sref="userHome">Me</a></li>
           <li ui-sref-active="active" ng-show="! currentUser"><a ui-sref="signup">Sign Up</a></li>
         </ul>
-        <div>
-          <ul ng-show="currentUser" class="nav nav-pills pull-right">
-            <li>{{currentUser}}</li>
-            <li ui-sref-active="active"><a ui-sref="logout">Sign Out</a></li>
-          </ul>
-        </div>
+        <ul ng-show="currentUser" class="nav nav-pills pull-right">
+          <li ui-sref-active="active">
+            <a ui-sref="userHome">
+            <span class="glyphicon glyphicon-user"></span>
+            {{currentUser}}
+            </a>
+          </li>
+          <li ui-sref-active="active"> 
+            <a ui-sref="logout">Log Out</a>
+          </li>
+        </ul>
       </div>
 
       <div ng-view=""></div>
@@ -91,7 +95,6 @@
         <script src="scripts/controllers/signup_controller.js"></script>
         <script src="scripts/controllers/userhome_controller.js"></script>
         <script src="scripts/controllers/confirmation_controller.js"></script>
-        <script src="scripts/controllers/forgotten_password_controller.js"></script>
         <script src="scripts/services/genehiveservice.js"></script>
         <script src="scripts/services/ligatorservice.js"></script>
         <!-- endbuild -->
