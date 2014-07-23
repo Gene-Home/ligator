@@ -139,6 +139,7 @@ geneHiveServices.service('SignUpService',['$q','$http',
             deferred.reject(fail);
           }
         )
+        return deferred.promise;
       }// end remindPassword
 
       // initialize to whatever is in the cookie, if anything
