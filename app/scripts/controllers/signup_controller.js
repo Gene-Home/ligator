@@ -6,7 +6,10 @@ angular.module('ligatorApp')
             $scope.signUp = function(){
 			$scope.user.group='testgroup';
 
-		SignUpService.signUp($scope.user)	
+
+		// send user & true to tell the service
+		// to send an email	
+		SignUpService.signUp($scope.user,true)	
 		.then(function(success){
 			alert(success);
 		},function(failure){
