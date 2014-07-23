@@ -11,9 +11,10 @@ angular.module('ligatorApp')
 		// to send an email	
 		SignUpService.signUp($scope.user,true)	
 		.then(function(success){
-			alert(success);
+			alert("You are all set and will receive an email");
+
 		},function(failure){
-			alert(failure);
+			alert("Something has failed!");
 		});
 	
 	};
