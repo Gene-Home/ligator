@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="styles/main.css">
     
     <!-- endbuild -->
+    <!-- manually added because bower didnt do it -->
+    <link rel="stylesheet" href="bower_components/chosen_v1.1.0/chosen.css"/>
   </head>
   <body ng-app="ligatorApp">
     <!--[if lt IE 7]>
@@ -49,8 +51,6 @@
         
       </div>
     </div>
-
-
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <!--
      <script>
@@ -81,13 +81,17 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-base64/angular-base64.min.js"></script>
+    <script src="bower_components/angular-chosen-localytics/chosen.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- My Manually Added stuff becuase it is constantly and annoyingly being
          over written by grunt bower -->
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-base64/angular-base64.js"></script>
+    <script src="bower_components/chosen_v1.1.0/chosen.jquery.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+      
+
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>

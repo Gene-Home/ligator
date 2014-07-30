@@ -105,6 +105,18 @@ geneHiveServices.service('SignUpService',['$q','$http',
         }; // end signUp
     }
 ]);// end SignUp service
+/**
+* The AuthSerice provides the following:
+* login - logs a user in to the system - meaning that:
+*  - the user's username and password are checked against the genehive server and are valid
+*  - if valid the username is stored in the $rootScope as 'currentUser'
+*  - if valid the user's username and password are stored in the header's of every subsequent
+*     http request as Auth Basic until the user is explicitly logged out
+*  - its is stored in a cookie so that the user can reload the site
+* logout - removes the user's credentials from the cookie store, the header and the $rootScope
+* remindPassword - sends a password reminder to the user with the given email assuming it exists
+* confirmUser - accepts an incomming token and confirms/activates the user
+*/
  geneHiveServices.service('AuthService', ['$rootScope','$q','$base64', '$cookieStore', '$http', 
  		function ($rootScope,$q,$base64, $cookieStore, $http) {
         setCredentials = function (username, password) {
@@ -116,7 +128,22 @@ geneHiveServices.service('SignUpService',['$q','$http',
             document.execCommand("ClearAuthenticationCache");
             $cookieStore.remove('authdata');
             $http.defaults.headers.common.Authorization = 'Basic ';
-      };
+        };
+      /**
+      * Sets the user's creds in the header
+      * and sets the current username in rootScope as 'currentUser' 
+      */  
+      this.cookieLogin = function(){
+        var authData = $cookieStore.get('authdata');
+        if (authData){
+          $http.defaults.headers.common['Authorization'] = 'Basic ' + authData;
+          var ua = $base64.decode(authData);
+          $rootScope.currentUser = ua.split(":")[0];
+          return true;
+        }else{
+          return false;
+        }
+      }  
       this.getCurrentUsername = function(){
         return this.currentUsername;
       }
@@ -170,8 +197,25 @@ geneHiveServices.service('SignUpService',['$q','$http',
     		})
     	return deferred.promise;
     }
+    this.confirmUser = function(username,token){
+            var deferred = $q.defer();
+            var tok = {};
+            tok.token = token;
+            tok = angular.toJson(tok);
+            $http.put('/GeneHive/api/v2/Users/' + username,{"token":token}).then(
+                function(response){
+                    // worked well so lets put this guy's creds in the header
+                    var username = response.data.username;
+                    var password = response.data.password;
+                    setCredentials(username,password);
+                    deferred.resolve('ok');
+                },function(reason){
+                    deferred.reject('something is wrong');
+                })
+            return deferred.promise;
+        }
 }]);
-geneHiveServices.service('ConfirmationService',['$q','$http','AuthService',
+geneHiveServices.service('ConfirmationService2',['$q','$http','AuthService',
     function($q,$http,AuthService){
         this.confirmUser = function(username,token){
             var deferred = $q.defer();

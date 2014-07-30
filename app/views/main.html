@@ -1,14 +1,42 @@
 <div class="jumbotron">
   <h1>Welcome</h1>
   <p class="lead">
-    I have: 
-    Am Looking For:
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+    I Offer:
+	 	<select
+	 		chosen 
+	 		data-placeholder="Please Select a Tag" 
+	 		multiple
+	 		data-placeholder="Choose a beer"
+	        no-results-text="'Could not find any beers :('" 
+	 		ng-model="seekingQueryTags" 
+	 		ng-options="t for t in allTags"
+	 		style="width:200px;"
+	 		>
+		</select>
+	</p>
+	<p class="lead">
+    I Seek:
+	 	<select
+	 		chosen 
+	 		data-placeholder="Please Select a Tag" 
+	 		multiple
+	 		data-placeholder="Choose a beer"
+	        no-results-text="'Could not find any beers :('" 
+	 		ng-model="offeringQueryTags" 
+	 		ng-options="t for t in allTags"
+	 		style="width:200px;"
+	 		>
+		</select>
+	</p>
+  <p><a class="btn btn-lg btn-success" ng-click="searchSystem()">Search!<span class="glyphicon glyphicon-ok"></span></a></p>
 </div>
 
 <div class="row marketing">
- <table>
-  <th>Hey</th>
+ <table class="table table-bordered">
+ <th>Result</th><th>Looking for</th><th>Offering</th>
+  <tbody ng-repeat="res in searchResults">
+  
+  <tr><td>{{res.name}}</td><td>{{res.seeking_tags}}</td><td>{{res.offering_tags}}</td></tr>
+  </tbody>
  </table>
 </div>

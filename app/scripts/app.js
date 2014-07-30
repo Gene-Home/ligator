@@ -10,6 +10,7 @@
  */
 angular
   .module('ligatorApp', [
+    'localytics.directives',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -33,4 +34,18 @@ angular
       .state('userHome',{url: "/user",templateUrl: 'views/user.html',controller: 'UserHomeCtrl'})
 
 
-  }]);
+  }])
+  .run(['AuthService','$rootScope',function(AuthService,$rootScope) {
+    if (AuthService.cookieLogin()){
+      // do nothing - let the guy thru
+    }else{
+      // set something in the root scope saying that
+      // we saw someone and passed him to index
+     // if($rootScope.visited == undefined){
+     //   $rootScope.visited = true;
+     //   location = "index.html"
+     // }
+     // punted for the moment .. we need an auth system for each url
+    }
+    return false;
+}]);

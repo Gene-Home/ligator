@@ -1,6 +1,6 @@
 angular.module('ligatorApp')
-  .controller('UserHomeCtrl',['$scope','$rootScope','$http','AuthService','ProfileService','EntityService',
-   function ($scope,$rootScope,$http,AuthService,ProfileService,EntityService) {
+  .controller('UserHomeCtrl',['$scope','$rootScope','$http','AuthService','ProfileService','EntityService','TagService',
+   function ($scope,$rootScope,$http,AuthService,ProfileService,EntityService,TagService) {
 
     // Start off showing home
     $scope.subview = 'showHome';
@@ -60,7 +60,27 @@ angular.module('ligatorApp')
       $scope.subview = 'showHome';
     }
     $scope.showEditProfile = function(){
-      $scope.subview = 'editProfile';
+      // load up all the possible tags 
+      // first
+      TagService.getAllTags('seeking_tags').then(
+        function(success){
+          $scope.allTags = success;
+          TagService.getAllTags('offering_tags').then(
+            function(success){
+                $scope.allTags.push.apply($scope.allTags,success);
+            
+              //$scope.allTags += success;
+              $scope.subview = 'editProfile';
+            },
+            function(failure){
+              alert("bad in offering " + failure)
+            })
+            
+        },
+        function(failure){
+          alert("bad " + failure)
+        }
+        )
     }
     $scope.showEditProject = function(){
       $scope.subview = 'editProject'
@@ -68,11 +88,13 @@ angular.module('ligatorApp')
     $scope.updateProfile = function(){
       // check to see if this is to create 
       // or update
+    //  $scope.userProfile.seeking_tags = ["dogs","cats","birds","tigers"];
+    //  $scope.userProfile.offering_tags = ["bikes","cars","planes","trains"];
       if($scope.userProfile.name == null){
         $scope.addProfile();
       }else{
 
-      EntityService.update({ ename:$rootScope.currentUser }, $scope.userProfile).$promise.then(
+      EntityService.update({ ename:$scope.userProfile.name }, $scope.userProfile).$promise.then(
         function(success){
           $scope.showUserHome();     
           //alert('good line 32 ' + success)
@@ -87,7 +109,7 @@ angular.module('ligatorApp')
     $scope.addProfile = function(){
       // HAVE TO MAKE SURE TO SET THE NAME FIELD
       // BEFORE A CREATE
-      $scope.userProfile.name = $rootScope.currentUser;
+      $scope.userProfile.name = $rootScope.currentUser+'-profile';
       EntityService.create({},$scope.userProfile).$promise.then(
         function(success){
           $scope.showUserHome();     
