@@ -9,8 +9,10 @@ angular.module('ligatorApp')
     // from a field of on object in $scope rather
     // than directly on $scope itself .. not sure why
     $scope.newTag = {};
-    $scope.userProfile = {class:'profile'};
+    $scope.userProfile = {class:'member-profile'};
     $scope.userProject = {class: 'project'};
+    // in case the user wants to add an org
+    $scope.userOrg = {class:'organization-profile'};
 
 
     $scope.loadUser = function(){
@@ -20,13 +22,14 @@ angular.module('ligatorApp')
           $scope.userProfile = success;
           //then we load the projects
           $scope.loadProjects();
+          $scope.loadOrganizations();
         },
         function(failed){
           // we really should know if it was not there
           // or something bad happened
           //alert('something went wrong' + failed);
         }
-        )
+      )
     }
 
     $scope.loadUser();
@@ -52,12 +55,19 @@ angular.module('ligatorApp')
       if($scope.subview == 'editProject'){
         return 'views/editProject.html'
       }
+      if($scope.subview == 'editOrganization'){
+        return 'views/editOrganization.html'
+      }
     }
 
     $scope.showUserHome = function(){
       // load the projects
       $scope.loadProjects();
+      $scope.loadOrganizations();
       $scope.subview = 'showHome';
+    }
+    $scope.showEditOrganization = function(){
+      $scope.subview = 'editOrganization';
     }
     $scope.showEditProfile = function(){
       // load up all the possible tags 
@@ -83,7 +93,7 @@ angular.module('ligatorApp')
         )
     }
     $scope.showEditProject = function(){
-      $scope.subview = 'editProject'
+      $scope.subview = 'editProject';
     }
     $scope.updateProfile = function(){
       // check to see if this is to create 
@@ -121,9 +131,26 @@ angular.module('ligatorApp')
 
       )
     };
+
+    // need to change this to an update and only add if its new
+    $scope.addOrganization = function(){
+      $scope.userOrg.class = 'organization-profile';
+      $scope.userOrg.owner = $scope.userProfile.name;
+      EntityService.create({},$scope.userOrg).$promise.then(
+        function(success){
+          $scope.showUserHome();     
+          //alert('good line 32 ' + success)
+        },
+        function(failure){
+          alert('bad line 134 ' + failure)
+        }
+
+      )
+    };
+
     $scope.addProject = function(){
       $scope.userProject.name = $rootScope.currentUser + $scope.userProject.title;
-      $scope.userProject.status = "0";
+      $scope.userProject.owner_profile = $rootScope.currentUser;
       EntityService.create({},$scope.userProject).$promise.then(
         function(success){
           $scope.showUserHome();     
@@ -136,10 +163,21 @@ angular.module('ligatorApp')
       )   
     }
     $scope.loadProjects = function(){
-      
-      EntityService.query({status:0}).$promise.then(
+      // just give a
+      EntityService.all({owner_profile:$rootScope.currentUser,class:'project'}).$promise.then(
         function(success){
         $scope.userProjects = success;    
+        },
+        function(failure){
+          alert("BAD PROJECTS " + failure)
+        }
+        )
+    };
+    $scope.loadOrganizations = function(){
+      // just give a
+      EntityService.all({owner_profile:$rootScope.currentUser,class:'organization-profile'}).$promise.then(
+        function(success){
+          $scope.userOrganizations = success;    
         },
         function(failure){
           alert("BAD PROJECTS " + failure)

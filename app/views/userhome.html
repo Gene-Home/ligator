@@ -10,12 +10,25 @@
 </div>
 <div>
 	<h3>My Projects <a href="#" ng-click="showEditProject()">add</a></h3>
-	<table>
+	<table class="table table-striped">
+		<th>Title</th><th>Description</th>
 		<tbody ng-repeat="p in userProjects" >
 			<tr>
+			<td>{{p.title}}</td>
+		 	<td>{{p.description}}</td>
+			</tr>	
+		</tbody> 
+	</table>
+</div>
+<div>
+	<h3>My Origs <a href="#" ng-click="showEditOrganization()">add</a></h3>
+	<table class="table table-striped">
+	<th>Title</th><th>Description</th>
+		<tbody ng-repeat="o in userOrganizations" >
+			<tr>
 			<td>
-				<b>{{p.title}}</b><br />
-				<p>{{p.description}}</p>
+				<b>{{o.name}}</b><br />
+				<p>{{o.description}}</p>
 			</td>
 			</tr>	
 		</tbody> 

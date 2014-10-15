@@ -19,6 +19,7 @@ angular
     'ngTouch',
     'ui.router',
     'base64',
+    'ngMap',
     'geneHiveServices',
     'ligatorServices'
 
@@ -32,6 +33,7 @@ angular
       .state('signup',{url: "/signup",templateUrl: 'views/signup.html',controller: 'SignUpCtrl'})
       .state('confirm',{url: "/confirm",templateUrl: 'views/confirm.html',controller: 'ConfirmCtrl'})
       .state('userHome',{url: "/user",templateUrl: 'views/user.html',controller: 'UserHomeCtrl'})
+      .state('map',{url: "/map",templateUrl: 'views/map.html',controller: 'MapCtrl'})
 
 
   }])

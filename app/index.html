@@ -17,6 +17,7 @@
     <!-- endbuild -->
     <!-- manually added because bower didnt do it -->
     <link rel="stylesheet" href="bower_components/chosen_v1.1.0/chosen.css"/>
+    <link rel="stylesheet" href="styles/bootstrap-tag-cloud.css"/>
   </head>
   <body ng-app="ligatorApp">
     <!--[if lt IE 7]>
@@ -28,6 +29,7 @@
       <div class="navbar navbar-default">
         <ul class="nav nav-pills pull-left">
           <li ui-sref-active="active"><a ui-sref="index">Home</a></li>
+          <li ui-sref-active="active"><a ui-sref="map">Maps</a></li>
           <li ui-sref-active="active" ng-show="! currentUser"><a ui-sref="login">Login</a></li>
           <li ui-sref-active="active" ng-show="! currentUser"><a ui-sref="signup">Sign Up</a></li>
         </ul>
@@ -89,6 +91,8 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-base64/angular-base64.js"></script>
     <script src="bower_components/chosen_v1.1.0/chosen.jquery.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
       
 
@@ -99,6 +103,7 @@
         <script src="scripts/controllers/signup_controller.js"></script>
         <script src="scripts/controllers/userhome_controller.js"></script>
         <script src="scripts/controllers/confirmation_controller.js"></script>
+        <script src="scripts/controllers/map_controller.js"></script>
         <script src="scripts/services/genehiveservice.js"></script>
         <script src="scripts/services/ligatorservice.js"></script>
         <!-- endbuild -->

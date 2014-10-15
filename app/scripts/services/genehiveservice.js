@@ -37,6 +37,17 @@ geneHiveServices.factory('EntityService',['$resource',
       		update: {method:'PUT'},
       		create: {method:'POST'},
           query:{method:'GET', isArray:true},
+          all:{
+                method:'GET',
+                url:'/GeneHive/api/v2/EntityQuery/All',
+                isArray:true
+              },
+          any:{
+                method:'GET',
+                url:'/GeneHive/api/v2/EntityQuery/Any',
+                isArray:true
+              },
+               
     	});
   	}]
  );// end User service

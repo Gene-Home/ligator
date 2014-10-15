@@ -29,8 +29,13 @@
 		</select>
 	</p>
   <p><a class="btn btn-lg btn-success" ng-click="searchSystem()">Search!<span class="glyphicon glyphicon-ok"></span></a></p>
+  
 </div>
-
+ <ul id="tag-cloud">
+ 	<li class="tag-cloud" ng-repeat="t in allTags" >{{t}}</li>
+ </ul>
+<div>
+</div>
 <div class="row marketing">
  <table class="table table-bordered">
  <th>Result</th><th>Looking for</th><th>Offering</th>
@@ -39,4 +44,7 @@
   <tr><td>{{res.name}}</td><td>{{res.seeking_tags}}</td><td>{{res.offering_tags}}</td></tr>
   </tbody>
  </table>
+  <pre>
+   {{ ps|json}} 
+ </pre>
 </div>
