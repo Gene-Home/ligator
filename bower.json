@@ -14,7 +14,8 @@
     "angular-route": "1.2.16",
     "angular-ui-router": "~0.2.10",
     "angular-base64": "2.0.1",
-    "angular-chosen-localytics": "~1.0.6"
+    "angular-chosen-localytics": "~1.0.6",
+    "ngmap":"0.17.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",
