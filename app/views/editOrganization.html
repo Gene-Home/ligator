@@ -1,28 +1,53 @@
+<div class="row">
+<div class="col-sm-9 col-md-12">
+
 <ol class="breadcrumb">
     <li><a ng-click="showUserHome()">Home: {{currentUser}}</a></li>
     <li class="active">Edit Organization</li>
  </ol>
-<form ng-submit="addOrganization()">
-	<label>Name (must be unique)</label>
-	<input type="text" ng-model="userOrg.name">
-	<label>Description</label>
- 	<input type="text" ng-model="userOrg.description">
- 	<label>Web Site</label>
- 	<input type="text" ng-model="userOrg.website">
- 	<label>Address</label>
- 	<input type="text" ng-model="userOrg.street">
- 	<label>City</label>
- 	<input type="text" ng-model="userOrg.city">
- 	<label>State</label>
- 	<input type="text" ng-model="userOrg.state">
- 	<label>Zip Code</label>
- 	<input type="text" ng-model="userOrg.zipcode">
- 	<label>Public? sorry hard coded for the moment</label>
- 	<label>Need to be able to add members ... damn</label>
+<form ng-submit="addOrganization()" role="form">
+	<div class="form-group">
+		<label>Name (must be unique)</label>
+		<input type="text" ng-model="userOrg.name" class="form-control">
+	</div>
+	<div class="form-group">
+		<label>Description</label>
+ 		<textarea 
+ 			 ng-model="userOrg.description" class="form-control">
+ 		</textarea>
+ 	</div>
+ 	<div class="form-group">
+	 	<label>Web Site</label>
+	 	<input type="text" ng-model="userOrg.website" class="form-control">
+	</div>
+ 	<div class="form-group">
+	 	<label>Address</label>
+	 	<input type="text" ng-model="userOrg.street" class="form-control">
+	</div>
+ 	<div class="form-group">
+	 	<label>City</label>
+	 	<input type="text" ng-model="userOrg.city" class="form-control">
+	</div>
+ 	<div class="form-group">
+	 	<label>State</label>
+	 	<input type="text" ng-model="userOrg.state" class="form-control">
+	</div>
+ 	<div class="form-group">
+	 	<label>Zip Code</label>
+	 	<input type="text" ng-model="userOrg.zipcode" class="form-control">
+	</div>
+	<div class="form-group">
+ 		<label>Public? sorry hard coded for the moment</label>
+ 		<label>Need to be able to add members ... damn</label>
+ 	</div>
 	<input type = 'submit'/>
+	
 </form>
-<div>
+<div ng-show='debug'>
  <pre>
    {{ userOrg | json}}
  </pre>
+</div>
+
+</div>
 </div>

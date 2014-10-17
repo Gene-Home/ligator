@@ -38,6 +38,7 @@ angular
 
   }])
   .run(['AuthService','$rootScope',function(AuthService,$rootScope) {
+    $rootScope.debug = false;
     if (AuthService.cookieLogin()){
       // do nothing - let the guy thru
     }else{

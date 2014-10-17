@@ -8,7 +8,7 @@
  * Controller of the ligatorApp
  */
 angular.module('ligatorApp')
-  .controller('MainCtrl', function ($scope,$resource,TagService) {
+  .controller('MainCtrl', function ($scope,$rootScope,$resource,$state,TagService) {
   	$scope.searchResults = {};
   	$scope.seekingTags = [];
   	$scope.loadTags = function(){
@@ -59,6 +59,11 @@ angular.module('ligatorApp')
     			alert('bad searching ' + failure);
     		}
     	)
+    }
+    // check to see if the user is logged in , if not then 
+    // need to shove the signup page in his face
+    if($rootScope.currentUser == null){
+      $state.go('signup');
     }
    	$scope.loadTags(); 
   });

@@ -18,16 +18,18 @@ angular.module('ligatorApp')
         $scope.markers[0].setPosition(result[0].geometry.location);
         $scope.markers[0].setTitle(org.name);
         $scope.markers[0].setMap($scope.map);
-
-
-      });
+        $scope.bounds.extend(result[0].geometry.location);
+        $scope.map.fitBounds($scope.bounds);
+      })
     }
    	$scope.testo = function(){
    		EntityService.all({class:'organization-profile'}).$promise.then(
         function(success){
           $scope.orgs = success;
           for(var idx in success){
+            $scope.bounds = new google.maps.LatLngBounds();
             $scope.markAddress(success[idx]);
+
           }    
         },
         function(failure){
