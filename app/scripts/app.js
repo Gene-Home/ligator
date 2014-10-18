@@ -33,6 +33,7 @@ angular
       .state('signup',{url: "/signup",templateUrl: 'views/signup.html',controller: 'SignUpCtrl'})
       .state('confirm',{url: "/confirm",templateUrl: 'views/confirm.html',controller: 'ConfirmCtrl'})
       .state('userHome',{url: "/user",templateUrl: 'views/user.html',controller: 'UserHomeCtrl'})
+      .state('pwreset',{url:"/pwreset",templateUrl: 'views/resetPassword.html',controller: 'PasswordResetCtrl'})
       .state('map',{url: "/map",templateUrl: 'views/map.html',controller: 'MapCtrl'})
 
 

@@ -224,7 +224,25 @@ geneHiveServices.service('SignUpService',['$q','$http',
                     deferred.reject('something is wrong');
                 })
             return deferred.promise;
-        }
+    };
+    /**
+    * Sends a new password and restet token to the system.
+    * Does not set the User's creds in the cookie
+    */
+    this.resetPassword = function(username,password,token){
+            var deferred = $q.defer();
+            var tok = {};
+            tok.token = token;
+            tok = angular.toJson(tok);
+            $http.put('/GeneHive/api/v2/Users/' + username,{"token":token,"password":password}).then(
+                function(response){
+                    deferred.resolve('ok');
+                },function(reason){
+                    deferred.reject('something is wrong');
+                })
+            return deferred.promise;
+    }
+
 }]);
 geneHiveServices.service('ConfirmationService2',['$q','$http','AuthService',
     function($q,$http,AuthService){
