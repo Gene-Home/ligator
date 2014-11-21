@@ -14,7 +14,7 @@ angular.module('ligatorApp')
     		  .then(function success(data) {
             // show the users profile
             $scope.bad_login = false;
-            $state.go('userHome');
+            $state.go('user.home');
   					console.log('Success!', data);
 
 			 }, function error(msg) {

@@ -1,12 +1,45 @@
 {
-	"name":"member",
-	"description":"I wanna freaking add this for fuk sake!"
-	"variables":{
-      "user_name":{"category":"general","type":"S"},
- 		"status":{"category":"statuscode","type":"C","codes":{
-   			"0":"inactive",
-   			"1":"active"}
-   		}
-   		
-	}
+	"name": "member",
+  	"variables": {
+	    "website": {
+	    	"type": "T",
+	      	"is_array": false
+	    },
+	    "description": {
+	      	"type": "T",
+	      	"is_array": false
+	    },
+	    "city": {
+	      	"type": "T",
+	      	"is_array": false
+	    },
+	    "state": {
+	      	"type": "T",
+	      	"is_array": false
+	    },
+	    "zip": {
+	    	"type": "T",
+	      	"is_array": false
+	    },
+	    "twitter": {
+	    	"type": "T",
+	      	"is_array": false
+	    },
+	    "facebook": {
+	    	"type": "T",
+	      	"is_array": false
+	    },
+	    "linkedin": {
+	    	"type": "T",
+	      	"is_array": false
+	    },
+	    "seeking_tags": {
+	      	"type": "T",
+	      	"is_array": true
+	    },
+	    "offering_tags": {
+	      	"type": "T",
+	      	"is_array": true
+	    }
+  	}
 }

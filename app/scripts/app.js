@@ -20,6 +20,7 @@ angular
     'ui.router',
     'base64',
     'ngMap',
+    'ui.select',
     'geneHiveServices',
     'ligatorServices'
 
@@ -32,12 +33,17 @@ angular
       .state('logout',{url: "/logout",templateUrl: 'views/logout.html',controller: 'LoginCtrl',data:{logging_in:false}})
       .state('signup',{url: "/signup",templateUrl: 'views/signup.html',controller: 'SignUpCtrl'})
       .state('confirm',{url: "/confirm",templateUrl: 'views/confirm.html',controller: 'ConfirmCtrl'})
-      .state('userHome',{url: "/user",templateUrl: 'views/user.html',controller: 'UserHomeCtrl'})
+      .state('user',{url: "/user",templateUrl:"views/user.html",controller: 'UserHomeCtrl'})
+      .state('user.home',{url: "/home",templateUrl:"views/userhome.html"})
+      .state('user.editMember',{url: "/editMember",templateUrl:"views/editMember.html"})
+      .state('user.editProject',{url: "/editProject",templateUrl:"views/editProject.html"})
+      .state('user.editOrganization',{url: "/home",templateUrl:"views/editOrganization.html"})
       .state('pwreset',{url:"/pwreset",templateUrl: 'views/resetPassword.html',controller: 'PasswordResetCtrl'})
       .state('map',{url: "/map",templateUrl: 'views/map.html',controller: 'MapCtrl'})
 
+    }  
 
-  }])
+  ])
   .run(['AuthService','$rootScope',function(AuthService,$rootScope) {
     $rootScope.debug = false;
     if (AuthService.cookieLogin()){

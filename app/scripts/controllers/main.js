@@ -8,12 +8,18 @@
  * Controller of the ligatorApp
  */
 angular.module('ligatorApp')
-  .controller('MainCtrl', function ($scope,$rootScope,$resource,$state,TagService) {
+  .controller('MainCtrl', function ($scope,$rootScope,$resource,$state,TagService,Entity) {
   	$scope.searchResults = {};
-  	$scope.seekingTags = [];
+    // Not sure why we cant just
+    // put the query tags directly
+    // on $scope - but we need an object
+    $scope.queryTags = {};
+    $scope.queryTags.seekingQueryTags = [];
+    $scope.queryTags.offeringQueryTags = [];
   	$scope.loadTags = function(){
       // load up all the possible tags 
       // first
+
       TagService.getAllTags('seeking_tags').then(
         function(success){
           $scope.allTags = success;
@@ -51,7 +57,7 @@ angular.module('ligatorApp')
     $scope.searchSystem = function(){
     	// hmm
     	// hack and I know it
-    	TagService.searchEntities($scope.seekingQueryTags,$scope.offeringQueryTags).then(
+    	TagService.searchEntities($scope.queryTags.seekingQueryTags,$scope.queryTags.offeringQueryTags).then(
     		function(success){
     			$scope.searchResults = success;
     		},

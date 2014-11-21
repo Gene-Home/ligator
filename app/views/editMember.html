@@ -1,0 +1,51 @@
+<div class="row">
+<div class="col-sm-9 col-md-12">
+
+	<ol class="breadcrumb">
+	    <li><a ng-click="showUserHome()">Home: {{currentUser}}</a></li>
+	    <li class="active">Edit Member Profile</li>
+	 </ol>
+	<form ng-submit="updateMember()" role="form">
+		<div class="form-group">
+			<label>Description</label>
+			<textarea 
+				ng-model="member.description"
+				class="form-control" rows="3"
+				>
+			</textarea>
+	 	</div>
+	 	<div class="form-group">
+	 		<label>City</label>	
+	 		<input type="text" ng-model="member.city" class="form-control">
+	 	</div>
+	 	<div class="form-group">
+	 		<label>State</label>	
+	 		<input type="text" ng-model="member.state" class="form-control">
+	 	</div>
+	 	<div class="form-group">
+	 		<label>WebSite</label>
+	 		<input type="text" ng-model="member.website" class="form-control">
+	 	</div>
+	 	<ul ng-repeat="t in allTags">
+	 	<li>{{t}}</li>
+	 	</ul>
+	<label>Seeking Tags</label>
+	<ui-select multiple ng-model="member.seeking_tags" theme="select2" ng-disabled="disabled" style="width: 300px;">
+    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
+    	<ui-select-choices repeat="t in allTags | filter:$select.search">
+      		{{t}}
+    	</ui-select-choices>
+  	</ui-select>
+  	<p>Selected: {{member.seeking_tags}}</p>
+  	<p>All Tags: {{allTags}}</p>
+	<input type="button" ng-click="addTag()" value="add">
+	<input type="text" ng-model="newTag.newTag" class="form-control">
+	<label>Offering Tags</label>
+	
+  	<p>Selected: {{member.offering_tags}}</p>
+	<br />
+	<input type = 'submit'/>
+	<button type="button" class="btn btn-primary" ng-click="showUserHome()">Cancel</button>
+	</form>
+</div>
+</div>

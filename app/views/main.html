@@ -2,37 +2,28 @@
   <h1>Welcome</h1>
   <p class="lead">
     I Offer:
-	 	<select
-	 		chosen 
-	 		data-placeholder="Please Select a Tag" 
-	 		multiple
-	 		data-placeholder="Choose a beer"
-	        no-results-text="'Could not find any beers :('" 
-	 		ng-model="seekingQueryTags" 
-	 		ng-options="t for t in allTags"
-	 		style="width:200px;"
-	 		>
-		</select>
+    	<ui-select multiple ng-model="queryTags.seekingQueryTags" theme="select2" ng-disabled="disabled" style="width: 300px;">
+    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
+    	<ui-select-choices repeat="t in allTags | filter:$select.search">
+      		{{t}}
+    	</ui-select-choices>
+  	</ui-select>
 	</p>
 	<p class="lead">
     I Seek:
-	 	<select
-	 		chosen 
-	 		data-placeholder="Please Select a Tag" 
-	 		multiple
-	 		data-placeholder="Choose a beer"
-	        no-results-text="'Could not find any beers :('" 
-	 		ng-model="offeringQueryTags" 
-	 		ng-options="t for t in allTags"
-	 		style="width:200px;"
-	 		>
-		</select>
+    	<ui-select multiple ng-model="queryTags.offeringQueryTags" theme="select2" ng-disabled="disabled" style="width: 300px;">
+    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
+    	<ui-select-choices repeat="t in allTags | filter:$select.search">
+      		{{t}}
+    	</ui-select-choices>
+  	</ui-select>
+
 	</p>
   <p><a class="btn btn-lg btn-success" ng-click="searchSystem()">Search!<span class="glyphicon glyphicon-ok"></span></a></p>
   
 </div>
  <ul id="tag-cloud">
- 	<li class="tag-cloud" ng-repeat="t in allTags" >{{t}}</li>
+ 	<li class="tag-cloud" ng-repeat="t in availableColors" >{{t}}</li>
  </ul>
 <div>
 </div>
@@ -45,6 +36,6 @@
   </tbody>
  </table>
   <pre>
-   {{ ps|json}} 
+   {{ queryTags.seekingQueryTags|json}} 
  </pre>
 </div>

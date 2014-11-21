@@ -1,33 +1,38 @@
+<div ng-show="successMessage"  class="alert alert-success" role="alert">
+	{{successMessage}}
+</div>
 <div>
-	<h3>Your Profile <a href="#" ng-click="showEditProfile()">(edit)</a></h3>
+	<h3>Your Profile <a href ng-click="showEditMember()">edit</a></h3>
 	<h4>Your Description</h4>	
-	<p>{{userProfile.description}}</p>
+	<p>{{member.description}}</p>
 	<h4>Your Offering</h4>
-	<p>{{userProfile.offering_tags}}</p>
+	<p>{{member.offering_tags}}</p>
 	<h4>You are Seeking</h4>
-	<p>{{userProfile.seeking_tags}}</p>
+	<p>{{member.seeking_tags}}</p>
 	
 </div>
 <div>
-	<h3>My Projects <a href="#" ng-click="showEditProject()">add</a></h3>
+	<h3>My Projects <a href ng-click="showCreateProject()">add</a></h3>
 	<table class="table table-striped">
-		<th>Title</th><th>Description</th>
+		<th>Title</th><th>Description</th><th></th>
 		<tbody ng-repeat="p in userProjects" >
 			<tr>
 			<td>{{p.title}}</td>
 		 	<td>{{p.description}}</td>
+		 	<td><a href ng-click="showEditProject(p.title)">edit</a></td>
 			</tr>	
 		</tbody> 
 	</table>
 </div>
 <div>
-	<h3>My Origs <a href="#" ng-click="showEditOrganization()">add</a></h3>
+	<h3>My Origs <a href ng-click="showCreateOrganization()">add</a></h3>
 	<table class="table table-striped">
-	<th>Title</th><th>Description</th>
+	<th>Title</th><th>Description</th><th></th>
 		<tbody ng-repeat="o in userOrganizations" >
 			<tr>
-			<td>{{	o.name}}</td>
+			<td>{{o.name}}</td>
 			<td>{{o.description}}</td>
+			<td><a href ng-click="showEditOrganization(o.orgname)">edit</a></td>
 			</tr>	
 		</tbody> 
 	</table>

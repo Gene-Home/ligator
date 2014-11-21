@@ -2,7 +2,8 @@
     <li><a ng-click="showUserHome()">Home: {{currentUser}}</a></li>
     <li class="active">Edit Project</li>
  </ol>
-<form ng-submit="addProject()">
+
+<form >
 	<div class="form-group">
 		<label>Title</label>
 		<input type="text" ng-model="userProject.title" class="form-control">
@@ -15,7 +16,28 @@
  	<div class="form-group">
  		<label>Public? sorry hard coded for the moment</label>
  	</div>
-	<input type = 'submit'/>
+ 	<div class="form-group">
+ 		<label>Seeking Tags</label>
+		<ui-select multiple ng-model="userProject.seeking_tags" theme="select2" ng-disabled="disabled" style="width: 300px;">
+    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
+    	<ui-select-choices repeat="t in allTags | filter:$select.search">
+      		{{t}}
+    	</ui-select-choices>
+  	</ui-select>
+  	<div class="form-group">
+ 		<label>Offering Tags</label>
+		<ui-select multiple ng-model="userProject.offering_tags" theme="select2" ng-disabled="disabled" style="width: 300px;">
+    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
+    	<ui-select-choices repeat="t in allTags | filter:$select.search">
+      		{{t}}
+    	</ui-select-choices>
+  	</ui-select>
+  	{{ allTags | json}}
+ 	</div>
+
+	<button type="button" class="btn btn-primary" ng-click="addProject()" ng-if="isNew">Add Project</button>
+	<button type="button" class="btn btn-primary" ng-click="updateProject()" ng-if="!isNew">Update Project</button>
+	<button type="button" class="btn btn-primary" ng-click="showUserHome()">Cancel</button>
 </form>
 <div ng-show='debug'>
  <pre>

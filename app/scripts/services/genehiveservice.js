@@ -33,7 +33,6 @@ geneHiveServices.ERROR.BAD_USER_OBJECT = 23;
 geneHiveServices.factory('EntityService',['$resource',
   	function($resource){
     	return $resource('/GeneHive/api/v2/Entities/:ename', {}, {
-      		query: {method:'GET'},
       		update: {method:'PUT'},
       		create: {method:'POST'},
           query:{method:'GET', isArray:true},
@@ -46,12 +45,34 @@ geneHiveServices.factory('EntityService',['$resource',
                 method:'GET',
                 url:'/GeneHive/api/v2/EntityQuery/Any',
                 isArray:true
-              },
-               
+              } 
     	});
   	}]
- );// end User service
-
+ );// end Entity service
+geneHiveServices.factory('Entity',['$resource',
+    function($resource){
+      return $resource('/GeneHive/api/v2/Entities/:entityname', {entityname:'@name'}, {
+          update:{
+            method:'PUT'
+          },
+          create:{
+            method:'POST',
+            url: '/GeneHive/api/v2/Entities/'
+          },
+          query:{method:'GET', isArray:true},
+          matchAll:{
+                method:'GET',
+                url:'/GeneHive/api/v2/EntityQuery/All',
+                isArray:true
+              },
+          matchAny:{
+                method:'GET',
+                url:'/GeneHive/api/v2/EntityQuery/Any',
+                isArray:true
+              } 
+      });
+    }]
+ );// end Entity service
 
 geneHiveServices.service('SignUpService',['$q','$http',
     function($q,$http){
