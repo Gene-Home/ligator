@@ -24,6 +24,11 @@
       		{{t}}
     	</ui-select-choices>
   	</ui-select>
+  	
+  	<input type="button" ng-click="addTag('userProject','seeking_tags','seeking')" value="add">
+	<input type="text" ng-model="newTag.seeking" class="form-control">
+
+
   	<div class="form-group">
  		<label>Offering Tags</label>
 		<ui-select multiple ng-model="userProject.offering_tags" theme="select2" ng-disabled="disabled" style="width: 300px;">
@@ -34,6 +39,8 @@
   	</ui-select>
   	{{ allTags | json}}
  	</div>
+ 	<input type="button" ng-click="addTag('userProject','offering_tags','offering')" value="add">
+	<input type="text" ng-model="newTag.offering" class="form-control">
 
 	<button type="button" class="btn btn-primary" ng-click="addProject()" ng-if="isNew">Add Project</button>
 	<button type="button" class="btn btn-primary" ng-click="updateProject()" ng-if="!isNew">Update Project</button>

@@ -7,7 +7,11 @@ angular.module('ligatorApp')
     // from a field of on object in $scope rather
     // than directly on $scope itself .. not sure why
     $scope.newTag = {};
-
+    $scope.allTags = [];
+    // need these there for ui-select
+    $scope.member = {};
+    $scope.member.seeking_tags = [];
+    $scope.member.offering_tags = [];
 
     $scope.loadUser = function(){
       Entity.matchAll({username:$rootScope.currentUser,class:'member'}).$promise.then(
@@ -33,15 +37,24 @@ angular.module('ligatorApp')
     }
     $scope.loadUser();
 
-    $scope.addTag = function(entityObject,tagCollection){
-      if(!$scope.member.seeking_tags ){
-        $scope.member.seeking_tags = [];
+    $scope.addTag = function(scopeObject,tagCollection,newTagValue){
+      // if tag exists in all tags,
+      // reject it
+      var rrr = $scope.newTag[newTagValue];
+      var idx = $scope.allTags.indexOf($scope.newTag[newTagValue]);
+      if($scope.allTags.indexOf($scope.newTag[newTagValue]) > 0 ){
+        return false;
+      }
+      if(!$scope[scopeObject][tagCollection] ){
+        $scope[scopeObject][tagColllection] = [];
       }
       // see if the tag exists
       // if not add it
       // add the tag to the member
-      if($scope.newTag.newTag){
-        $scope.member.seeking_tags.push($scope.newTag.newTag);
+      if($scope.newTag[newTagValue]){
+        $scope[scopeObject][tagCollection].push($scope.newTag[newTagValue]);
+        // also have to push it to all tags
+        $scope.allTags.push($scope.newTag[newTagValue])
       }
     }
 
@@ -67,15 +80,19 @@ angular.module('ligatorApp')
     }
     $scope.showEditMember = function(){
       // load up all the possible tags
+      $scope.allTags = [];
       TagService.getAllTags('seeking_tags').then(
-        function(success){
-          $scope.allTags = success;
+        function(success1){
           TagService.getAllTags('offering_tags').then(
-            function(success){
-                $scope.allTags.push.apply($scope.allTags,success);
-
-              //$scope.allTags += success;
-              //$scope.subview = 'editMember';
+            function(success2){
+              // needs to ensure no dupes in all tags
+              for(i=0; i<success2.length;i++){
+                var tag = success2[i];
+                if(success1.indexOf(tag) < 0){
+                  success1.push(tag);
+                }
+              }
+              $scope.allTags = success1;
               $state.go('user.editMember');
             },
             function(failure){
@@ -87,6 +104,7 @@ angular.module('ligatorApp')
         }
       )
     }
+
     $scope.showEditProject = function(projectTitle){
 
       Entity.matchAll({title:projectTitle,class:'project'},
@@ -230,15 +248,20 @@ angular.module('ligatorApp')
     }
 
     $scope.loadAllTags = function(goToState){
-     TagService.getAllTags('seeking_tags').then(
-        function(success){
-          $scope.allTags = success;
+      // load up all the possible tags
+      $scope.allTags = [];
+      TagService.getAllTags('seeking_tags').then(
+        function(success1){
           TagService.getAllTags('offering_tags').then(
-            function(success){
-                $scope.allTags.push.apply($scope.allTags,success);
-
-              //$scope.allTags += success;
-              //$scope.subview = 'editMember';
+            function(success2){
+              // needs to ensure no dupes in all tags
+              for(i=0; i<success2.length;i++){
+                var tag = success2[i];
+                if(success1.indexOf(tag) < 0){
+                  success1.push(tag);
+                }
+              }
+              $scope.allTags = success1;
               $state.go(goToState);
             },
             function(failure){
@@ -250,6 +273,8 @@ angular.module('ligatorApp')
         }
       )
     }
+
+
      $scope.things = 12;
 
     $scope.things = {};
