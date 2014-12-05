@@ -1,6 +1,10 @@
 {
    "name": "project",
    "variables": {
+      "username":{
+         "type": "T",
+         "is_array": false
+         },
       "title": {
          "type": "T",
          "is_array": false

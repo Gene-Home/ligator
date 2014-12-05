@@ -5,6 +5,14 @@
       "type": "T",
       "is_array": false
     },
+    "orgname": {
+      "type": "T",
+      "is_array": false
+    },
+    "username":{
+      "type": "T",
+      "is_array": false
+    }
     "description":{
       "type": "T",
       "is_array": false

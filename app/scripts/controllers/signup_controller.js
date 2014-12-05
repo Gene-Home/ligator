@@ -14,7 +14,7 @@ angular.module('ligatorApp')
 			alert("You are all set and will receive an email");
 
 		},function(failure){
-			alert("Something has failed!");
+			alert(failure[1].data);
 		});
 	
 	};

@@ -1,6 +1,10 @@
 {
 	"name": "member",
   	"variables": {
+  		"username"{
+  			"type": "T",
+	      	"is_array": false
+  		},
 	    "website": {
 	    	"type": "T",
 	      	"is_array": false

@@ -2,9 +2,18 @@
 	{{successMessage}}
 </div>
 <div>
+	<p>
+		Please Complete your Profile
+	</p>
 	<h3>Your Profile <a href ng-click="showEditMember()">edit</a></h3>
-	<h4>Your Description</h4>	
-	<p>{{member.description}}</p>
+	<div class="row">
+		<div class="col-md-4">
+			Your Description
+		</div>
+		<div class="col-md-8">	
+			{{member.description}}
+		</div>
+	</div>
 	<h4>Your Offering</h4>
 	<p>{{member.offering_tags}}</p>
 	<h4>You are Seeking</h4>

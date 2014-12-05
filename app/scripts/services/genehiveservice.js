@@ -128,9 +128,9 @@ geneHiveServices.service('SignUpService',['$q','$http',
                     }else{
                        deferred.resolve([geneHiveServices.SUCCESS.USER_CREATED_NO_EMAIL,response]);
                     }
-                },function(reason){
+                },function(reason){// reject the new user POST
                     console.log(reason);
-                    deferred.resolve([geneHiveServices.ERROR.USER_CREATION,reason])
+                    deferred.reject([geneHiveServices.ERROR.USER_CREATION,reason])
                 }
             );
             return deferred.promise;
@@ -229,7 +229,7 @@ geneHiveServices.service('SignUpService',['$q','$http',
     		})
     	return deferred.promise;
     }
-    this.confirmUser = function(username,token){
+    this.activateUser = function(username,token){
             var deferred = $q.defer();
             var tok = {};
             tok.token = token;
@@ -237,12 +237,16 @@ geneHiveServices.service('SignUpService',['$q','$http',
             $http.put('/GeneHive/api/v2/Users/' + username,{"token":token}).then(
                 function(response){
                     // worked well so lets put this guy's creds in the header
-                    var username = response.data.username;
-                    var password = response.data.password;
-                    setCredentials(username,password);
-                    deferred.resolve('ok');
+                    //var username = response.data.username;
+                    //var password = response.data.password;
+                    // we do not get the password so we cant just 
+                    // log him in
+                    //setCredentials(username,password);
+                    deferred.resolve(response);
                 },function(reason){
-                    deferred.reject('something is wrong');
+                    console.log(reason);
+                    deferred.reject('something is wrong: ' + reason);
+
                 })
             return deferred.promise;
     };

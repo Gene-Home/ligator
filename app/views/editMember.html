@@ -1,59 +1,59 @@
 <div class="row">
-<div class="col-sm-9 col-md-12">
+	<div class="col-sm-9 col-md-12">
 
-	<ol class="breadcrumb">
-	    <li><a ng-click="showUserHome()">Home: {{currentUser}}</a></li>
-	    <li class="active">Edit Member Profile</li>
-	 </ol>
-	<form ng-submit="updateMember()" role="form">
-		<div class="form-group">
-			<label>Description</label>
-			<textarea
-				ng-model="member.description"
-				class="form-control" rows="3"
-				>
-			</textarea>
-	 	</div>
-	 	<div class="form-group">
-	 		<label>City</label>
-	 		<input type="text" ng-model="member.city" class="form-control">
-	 	</div>
-	 	<div class="form-group">
-	 		<label>State</label>
-	 		<input type="text" ng-model="member.state" class="form-control">
-	 	</div>
-	 	<div class="form-group">
-	 		<label>WebSite</label>
-	 		<input type="text" ng-model="member.website" class="form-control">
-	 	</div>
-	 	<ul ng-repeat="t in allTags">
-	 	<li>{{t}}</li>
-	 	</ul>
-	<label>Seeking Tags</label>
-	<ui-select multiple ng-model="member.seeking_tags" theme="select2" style="width: 300px;">
-    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
-    	<ui-select-choices repeat="t in allTags | filter:$select.search">
-      		{{t}}
-    	</ui-select-choices>
-  	</ui-select>
-	<input type="button" ng-click="addTag('member','seeking_tags','seeking')" value="add">
-	<input type="text" ng-model="newTag.seeking" class="form-control">
-	<br />
-	<label>Offering Tags</label>
-	<ui-select multiple ng-model="member.offering_tags" theme="select2" style="width: 300px;">
-    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
-    	<ui-select-choices repeat="t in allTags | filter:$select.search">
-      		{{t}}
-    	</ui-select-choices>
-  	</ui-select>
-    <p>{{member}}</p>
-	<input type="button" ng-click="addTag('member','offering_tags','offering')" value="add">
-	<input type="text" ng-model="newTag.offering" class="form-control">
-	<br />
+		<ol class="breadcrumb">
+		    <li><a ng-click="showUserHome()">Home: {{currentUser}}</a></li>
+		    <li class="active">Edit Member Profile</li>
+		 </ol>
+		 <form ng-submit="updateMember()" role="form">
+			<div class="form-group">
+				<label>Description</label>
+				<textarea
+					ng-model="member.description"
+					class="form-control" rows="3"
+					>
+				</textarea>
+		 	</div>
+		 	<div class="form-group">
+		 		<label>City</label>
+		 		<input type="text" ng-model="member.city" class="form-control">
+		 	</div>
+		 	<div class="form-group">
+		 		<label>State</label>
+		 		<input type="text" ng-model="member.state" class="form-control">
+		 	</div>
+		 	<div class="form-group">
+		 		<label>WebSite</label>
+		 		<input type="text" ng-model="member.website" class="form-control">
+		 	</div>
+		 	<ul ng-repeat="t in allTags">
+		 	<li>{{t}}</li>
+		 	</ul>
+		<label>Seeking Tags</label>
+		<ui-select multiple ng-model="member.seeking_tags" theme="select2" style="width: 300px;">
+	    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
+	    	<ui-select-choices repeat="t in allTags | filter:$select.search">
+	      		{{t}}
+	    	</ui-select-choices>
+	  	</ui-select>
+		<input type="button" ng-click="addTag('member','seeking_tags','seeking')" value="add">
+		<input type="text" ng-model="newTag.seeking" class="form-control">
+		<br />
+		<label>Offering Tags</label>
+		<ui-select multiple ng-model="member.offering_tags" theme="select2" style="width: 300px;">
+	    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
+	    	<ui-select-choices repeat="t in allTags | filter:$select.search">
+	      		{{t}}
+	    	</ui-select-choices>
+	  	</ui-select>
+	    <p>{{member}}</p>
+		<input type="button" ng-click="addTag('member','offering_tags','offering')" value="add">
+		<input type="text" ng-model="newTag.offering" class="form-control">
+		<br />
 
 
-	<input type = 'submit'/>
-	<button type="button" class="btn btn-primary" ng-click="showUserHome()">Cancel</button>
-	</form>
-</div>
+		<input type = 'submit'/>
+		<button type="button" class="btn btn-primary" ng-click="showUserHome()">Cancel</button>
+		</form>
+	</div>
 </div>

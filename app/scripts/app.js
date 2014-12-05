@@ -32,7 +32,7 @@ angular
       .state('login',{url: "/login",templateUrl: 'views/login.html',controller: 'LoginCtrl',data:{logging_in:true}})
       .state('logout',{url: "/logout",templateUrl: 'views/logout.html',controller: 'LoginCtrl',data:{logging_in:false}})
       .state('signup',{url: "/signup",templateUrl: 'views/signup.html',controller: 'SignUpCtrl'})
-      .state('confirm',{url: "/confirm",templateUrl: 'views/confirm.html',controller: 'ConfirmCtrl'})
+      .state('activate',{url: "/activate",templateUrl: 'views/activate.html',controller: 'ActivateCtrl'})
       .state('user',{url: "/user",templateUrl:"views/user.html",controller: 'UserHomeCtrl'})
       .state('user.home',{url: "/home",templateUrl:"views/userhome.html"})
       .state('user.editMember',{url: "/editMember",templateUrl:"views/editMember.html"})
