@@ -33,7 +33,7 @@ angular.module('ligatorApp')
           alert('Email Sent');
           $scope.reminding = false;
         },function(fail){
-          alert("Problem " + failed);
+          alert("Problem " + fail);
       })
     };// end createClass
 
