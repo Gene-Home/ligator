@@ -26,9 +26,6 @@
 		 		<label>WebSite</label>
 		 		<input type="text" ng-model="member.website" class="form-control">
 		 	</div>
-		 	<ul ng-repeat="t in allTags">
-		 	<li>{{t}}</li>
-		 	</ul>
 		<label>Seeking Tags</label>
 		<ui-select multiple ng-model="member.seeking_tags" theme="select2" style="width: 300px;">
 	    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
@@ -46,11 +43,9 @@
 	      		{{t}}
 	    	</ui-select-choices>
 	  	</ui-select>
-	    <p>{{member}}</p>
 		<input type="button" ng-click="addTag('member','offering_tags','offering')" value="add">
 		<input type="text" ng-model="newTag.offering" class="form-control">
 		<br />
-
 
 		<input type = 'submit'/>
 		<button type="button" class="btn btn-primary" ng-click="showUserHome()">Cancel</button>
