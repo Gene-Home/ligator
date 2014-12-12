@@ -23,7 +23,7 @@ angular.module('ligatorApp')
       })
     }
    	$scope.testo = function(){
-   		EntityService.all({class:'organization-profile'}).$promise.then(
+   		EntityService.all({class:'organization'}).$promise.then(
         function(success){
           $scope.orgs = success;
           for(var idx in success){

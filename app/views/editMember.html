@@ -4,7 +4,7 @@
 		<ol class="breadcrumb">
 		    <li><a ng-click="showUserHome()">Home: {{currentUser}}</a></li>
 		    <li class="active">Edit Member Profile</li>
-		 </ol>
+		</ol>
 		 <form ng-submit="updateMember()" role="form">
 			<div class="form-group">
 				<label>Description</label>
@@ -23,31 +23,47 @@
 		 		<input type="text" ng-model="member.state" class="form-control">
 		 	</div>
 		 	<div class="form-group">
+		 		<label>Zip</label>
+		 		<input type="text" ng-model="member.zip" class="form-control">
+		 	</div>
+		 	<div class="form-group">
 		 		<label>WebSite</label>
 		 		<input type="text" ng-model="member.website" class="form-control">
 		 	</div>
+		 	<div class="form-group">
+		 		<label>Facebook</label>
+		 		<input type="text" ng-model="member.facebook" class="form-control">
+		 	</div>
+		 	<div class="form-group">
+		 		<label>Linked In</label>
+		 		<input type="text" ng-model="member.linkedin" class="form-control">
+		 	</div>
 		<label>Seeking Tags</label>
+		<p>
 		<ui-select multiple ng-model="member.seeking_tags" theme="select2" style="width: 300px;">
 	    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
 	    	<ui-select-choices repeat="t in allTags | filter:$select.search">
 	      		{{t}}
 	    	</ui-select-choices>
 	  	</ui-select>
-		<input type="button" ng-click="addTag('member','seeking_tags','seeking')" value="add">
+	  	</p>
 		<input type="text" ng-model="newTag.seeking" class="form-control">
+		<input type="button" ng-click="addTag('member','seeking_tags','seeking')" value="add">
 		<br />
 		<label>Offering Tags</label>
+		<p>
 		<ui-select multiple ng-model="member.offering_tags" theme="select2" style="width: 300px;">
 	    	<ui-select-match placeholder="Select something...">{{$item}}</ui-select-match>
 	    	<ui-select-choices repeat="t in allTags | filter:$select.search">
 	      		{{t}}
 	    	</ui-select-choices>
 	  	</ui-select>
-		<input type="button" ng-click="addTag('member','offering_tags','offering')" value="add">
+	  	</p>
 		<input type="text" ng-model="newTag.offering" class="form-control">
+		<input type="button" ng-click="addTag('member','offering_tags','offering')" value="add">
 		<br />
 
-		<input type = 'submit'/>
+		<input type='submit' class="btn btn-primary"/>
 		<button type="button" class="btn btn-primary" ng-click="showUserHome()">Cancel</button>
 		</form>
 	</div>
