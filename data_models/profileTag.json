@@ -1,9 +1,0 @@
-{
-	name:"profileTag",
-	"variables":{
-		tagValue:  {
-      		"category": "meta",
-      		"type": "T"
-    	}
-	}
-}
