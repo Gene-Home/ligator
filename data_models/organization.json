@@ -12,7 +12,7 @@
     "username":{
       "type": "T",
       "is_array": false
-    }
+    },
     "description":{
       "type": "T",
       "is_array": false
