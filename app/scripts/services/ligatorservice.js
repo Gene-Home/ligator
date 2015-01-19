@@ -14,7 +14,7 @@ ligatorServices.ERROR.PROFILE_NOT_FOUND = 2;
 ligatorServices.ERROR.PROFILE_NOT_FOUND = 3;
 
 
-ligatorServices.service('TagService',['$q','$http',
+ligatorServices.service('TagServicexx',['$q','$http',
     function($q,$http){
         this.getAllTags = function(tag_name){
             var deferred = $q.defer();
@@ -31,7 +31,7 @@ ligatorServices.service('TagService',['$q','$http',
         }
         // returns the entities that contain 'seeking_tags' or 'offering_tags'
         // variable values that match the seeking and offering parameters
-        this.searchEntities = function(seeking,offering){
+        this.searchEntitiesxx = function(seeking,offering){
             var deferred = $q.defer();
             var qparams = "";
             for(i in seeking){

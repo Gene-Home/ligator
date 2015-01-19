@@ -1,6 +1,6 @@
 angular.module('ligatorApp')
   .controller('UserHomeCtrl',['$scope','$rootScope','$http','AuthService','Entity','TagService','$state',
-   function ($scope,$rootScope,$http,AuthService,Entity,TagService,$state) {
+   function ($scope,$rootScope,$http,AuthService,Entity,$state) {
 
     // for the moment , hacking around the
     // fact that I need to obtain my tag variable
@@ -42,6 +42,7 @@ angular.module('ligatorApp')
       // reject it
       var rrr = $scope.newTag[newTagValue];
       var idx = $scope.allTags.indexOf($scope.newTag[newTagValue]);
+
       if($scope.allTags.indexOf($scope.newTag[newTagValue]) > 0 ){
         return false;
       }

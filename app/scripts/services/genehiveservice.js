@@ -8,50 +8,20 @@
  * Service in the ligatorApp.
  */
 var geneHiveServices = angular.module('geneHiveServices', ['ngResource']);
-
 geneHiveServices.SUCCESS = {};
 geneHiveServices.ERROR = {};
-geneHiveServices.SUCCESS.USER_CREATED_NO_EMAIL = 'X';
-geneHiveServices.SUCCESS.USER_CREATED_WITH_EMAIL = 'Y';
-geneHiveServices.ERROR.USER_CONFIRMATION_EMAIL = 'Z';
-geneHiveServices.ERROR.USER_CREATION = 12;
-geneHiveServices.ERROR.BAD_USER_OBJECT = 23;
+
+geneHiveServices.SUCCESS.USER_CREATED_NO_EMAIL = 'User was created with no confirmation email';
+geneHiveServices.SUCCESS.USER_CREATED_WITH_EMAIL = 'User was created and confirmation email sent';
+geneHiveServices.ERROR.USER_CONFIRMATION_EMAIL = 'Could not create a User or send confirmation email';
+geneHiveServices.ERROR.USER_CREATION = 'Error Creating User';
+geneHiveServices.ERROR.BAD_USER_OBJECT = 'User object was incomplete and could not be created';
 
 
-/**
-* Use the following:
-* for profile
-* {
-    "name": "userName",
-    "class": "profile",
-    "description": "i like to do stuff",
-    "offering": "lots of painting",
-    "seeking": "someone who can clean"
-}
-* for project
-*/
-geneHiveServices.factory('EntityService',['$resource',
-  	function($resource){
-    	return $resource('/GeneHive/api/v2/Entities/:ename', {}, {
-      		update: {method:'PUT'},
-      		create: {method:'POST'},
-          query:{method:'GET', isArray:true},
-          all:{
-                method:'GET',
-                url:'/GeneHive/api/v2/EntityQuery/All',
-                isArray:true
-              },
-          any:{
-                method:'GET',
-                url:'/GeneHive/api/v2/EntityQuery/Any',
-                isArray:true
-              } 
-    	});
-  	}]
- );// end Entity service
 geneHiveServices.factory('Entity',['$resource',
     function($resource){
-      return $resource('/GeneHive/api/v2/Entities/:entityname', {entityname:'@name'}, {
+      return $resource('/GeneHive/api/v2/Entities/:entityname', 
+        {entityname:'@name'}, {
           update:{
             method:'PUT'
           },
@@ -69,7 +39,12 @@ geneHiveServices.factory('Entity',['$resource',
                 method:'GET',
                 url:'/GeneHive/api/v2/EntityQuery/Any',
                 isArray:true
-              } 
+              },
+          distinctValues:{
+                method: 'GET',
+                url: '/GeneHive/api/v2/EntityQuery/DistinctVariableValues/:variableName',
+                isArray:true 
+          } 
       });
     }]
  );// end Entity service
@@ -83,7 +58,7 @@ geneHiveServices.service('SignUpService',['$q','$http',
          * @param newUser - an object with {username,email,group}
          * @param sendEmail - if true, will send a confirmation email the the
          * user and the user. If false, the user must me manually confirmed by
-         * a super user.
+         * a super user within the GeneHive system.
          *
          */
         this.signUp = function(newUser,sendEmail){
@@ -100,11 +75,9 @@ geneHiveServices.service('SignUpService',['$q','$http',
             }
             if(newUser.group == null){
                 goodUser = false;
-                alert('Hey ther user group is fales');
                 errorString += " group field is missing "
             }
             if(!goodUser){
-                alert('Hey I am returing something bad!');
                 deferred.reject([geneHiveServices.ERROR.BAD_USER_OBJECT,errorString]);
                 return deferred.promise;
             }
@@ -137,6 +110,7 @@ geneHiveServices.service('SignUpService',['$q','$http',
         }; // end signUp
     }
 ]);// end SignUp service
+
 /**
 * The AuthSerice provides the following:
 * login - logs a user in to the system - meaning that:
@@ -216,16 +190,15 @@ geneHiveServices.service('SignUpService',['$q','$http',
     				$http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');			
     				deferred.resolve();	
     			}else{
-    				var dfdf = 43;
     				clearCredentials();	
-    				deferred.reject("this failed!!");	
+    				deferred.reject("incorrect password");	
     			}	
     		}).
     		error(function(data, status, headers, config) {
       			// called asynchronously if an error occurs
       			// or server returns response with an error status.
       			clearCredentials();
-      			deferred.reject("this failed!!");
+      			deferred.reject("general error");
     		})
     	return deferred.promise;
     }
@@ -245,7 +218,7 @@ geneHiveServices.service('SignUpService',['$q','$http',
                     deferred.resolve(response);
                 },function(reason){
                     console.log(reason);
-                    deferred.reject('something is wrong: ' + reason);
+                    deferred.reject('could not activate user: ' + reason);
 
                 })
             return deferred.promise;
@@ -263,31 +236,9 @@ geneHiveServices.service('SignUpService',['$q','$http',
                 function(response){
                     deferred.resolve('ok');
                 },function(reason){
-                    deferred.reject('something is wrong');
+                    deferred.reject('could not reset password: ' + reason);
                 })
             return deferred.promise;
     }
 
 }]);
-geneHiveServices.service('ConfirmationService2',['$q','$http','AuthService',
-    function($q,$http,AuthService){
-        this.confirmUser = function(username,token){
-            var deferred = $q.defer();
-            var tok = {};
-            tok.token = token;
-            tok = angular.toJson(tok);
-            $http.put('/GeneHive/api/v2/Users/' + username,{"token":token}).then(
-                function(response){
-                    // worked well so lets put this guy's creds in the header
-                    var username = response.data.username;
-                    var password = response.data.password;
-                    AuthService.setCredentials(username,password);
-                    deferred.resolve('ok');
-                },function(reason){
-                    deferred.reject('something is wrong');
-                })
-            return deferred.promise;
-        }
-
-    }
-]);

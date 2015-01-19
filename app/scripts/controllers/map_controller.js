@@ -1,6 +1,6 @@
 
 angular.module('ligatorApp')
-.controller('MapCtrl', function($scope,EntityService,GeoCoder) {
+.controller('MapCtrl', ['$scope','Entity','GeoCoder',function($scope,Entity,GeoCoder) {
 
 	//will be set in mapsInitialized
 	$scope.map;
@@ -23,7 +23,7 @@ angular.module('ligatorApp')
       })
     }
    	$scope.testo = function(){
-   		EntityService.all({class:'organization'}).$promise.then(
+   		Entity.matchAll({class:'organization'}).$promise.then(
         function(success){
           $scope.orgs = success;
           for(var idx in success){
@@ -40,4 +40,4 @@ angular.module('ligatorApp')
    		
    	}
   });
-});
+}]);
