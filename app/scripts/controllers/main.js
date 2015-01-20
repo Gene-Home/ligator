@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 
 /**
  * @ngdoc function
@@ -20,27 +20,19 @@ angular.module('ligatorApp')
   	$scope.loadTags = function(){
       // load up all the possible tags 
       // first
-      Entity.distinctValues({variableName:'seeking_tags'}).$promise.then(
-      function(success){
-        $scope.allTags = success;
-        Entity.distinctValues({variableName:'seeking_tags'}).$promise.then(
-          function(success){
-            // iterate over and only add non-existant ones
-            for(var i=0; i<success.length; i++){
-              if($scope.allTags.indexOf(success[i]) < 0){
-                $scope.allTags.push(success[i]);    
-              }
-            }
-          },
-          function(failed){
-            alert(failed)
-          //alert('something went wrong' + failed);
-          }  
-        )
-      },
-      function(failure){
-        alert("bad " + failure)
-      }
+      Entity.distinctValues({variableName:['seeking_tags','offering_tags']}).$promise.then(
+        function(success){
+          $scope.allTags = success;
+          // iterate over and only add non-existant ones
+          for(var i=0; i<success.length; i++){
+            if($scope.allTags.indexOf(success[i]) < 0){
+              $scope.allTags.push(success[i]);
+            }    
+          }
+        },
+        function(failure){
+          alert("bad " + failure)
+        }
       )
     }// end loadTags
 
@@ -48,7 +40,8 @@ angular.module('ligatorApp')
     $scope.searchSystem = function(){
     	// hmm
     	// hack and I know it
-    	TagService.searchEntities($scope.queryTags.seekingQueryTags,$scope.queryTags.offeringQueryTags).then(
+      Entity.matchAny({seeking_tags:$scope.queryTags.seekingQueryTags,
+                       offering_tags:$scope.queryTags.offeringQueryTags}).$promise.then(
     		function(success){
     			$scope.searchResults = success;
     		},

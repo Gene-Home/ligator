@@ -18,6 +18,7 @@ geneHiveServices.ERROR.USER_CREATION = 'Error Creating User';
 geneHiveServices.ERROR.BAD_USER_OBJECT = 'User object was incomplete and could not be created';
 
 
+
 geneHiveServices.factory('Entity',['$resource',
     function($resource){
       return $resource('/GeneHive/api/v2/Entities/:entityname', 
@@ -42,7 +43,7 @@ geneHiveServices.factory('Entity',['$resource',
               },
           distinctValues:{
                 method: 'GET',
-                url: '/GeneHive/api/v2/EntityQuery/DistinctVariableValues/:variableName',
+                url: '/GeneHive/api/v2/EntityQuery/DistinctVariableValues/',
                 isArray:true 
           } 
       });

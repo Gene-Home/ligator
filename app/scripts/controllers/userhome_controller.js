@@ -1,5 +1,5 @@
 angular.module('ligatorApp')
-  .controller('UserHomeCtrl',['$scope','$rootScope','$http','AuthService','Entity','TagService','$state',
+  .controller('UserHomeCtrl',['$scope','$rootScope','$http','AuthService','Entity','$state',
    function ($scope,$rootScope,$http,AuthService,Entity,$state) {
 
     // for the moment , hacking around the
@@ -80,32 +80,9 @@ angular.module('ligatorApp')
       )
     }
     $scope.showEditMember = function(){
-      // load up all the possible tags
-      $scope.allTags = [];
-      TagService.getAllTags('seeking_tags').then(
-        function(success1){
-          TagService.getAllTags('offering_tags').then(
-            function(success2){
-              // needs to ensure no dupes in all tags
-              for(i=0; i<success2.length;i++){
-                var tag = success2[i];
-                if(success1.indexOf(tag) < 0){
-                  success1.push(tag);
-                }
-              }
-              $scope.allTags = success1;
-              $state.go('user.editMember');
-            },
-            function(failure){
-              alert("bad in offering " + failure)
-            })
-        },
-        function(failure){
-          alert("bad " + failure)
-        }
-      )
+      $scope.loadAllTags('user.editMember');
     }
-
+    
     $scope.showEditProject = function(projectTitle){
 
       Entity.matchAll({title:projectTitle,class:'project'},
@@ -121,16 +98,12 @@ angular.module('ligatorApp')
       )
     }
     $scope.showCreateProject = function(){
-      if(angular.isUndefined($scope.userProject)){
-          $scope.userProject = new Entity({class:'project'});
-        }
+      $scope.userProject = new Entity({class:'project'}); 
       $scope.isNew = true;
       $scope.loadAllTags('user.editProject');
     }
     $scope.showCreateOrganization = function(){
-      if(angular.isUndefined($scope.userOrg)){
-          $scope.userOrg = new Entity({class:'organization'});
-        }
+      $scope.userOrg = new Entity({class:'organization'});
       $scope.isNew = true;
       $scope.loadAllTags('user.editOrganization');
     }
@@ -247,42 +220,20 @@ angular.module('ligatorApp')
         }
         )
     }
-
     $scope.loadAllTags = function(goToState){
       // load up all the possible tags
       $scope.allTags = [];
-      TagService.getAllTags('seeking_tags').then(
-        function(success1){
-          TagService.getAllTags('offering_tags').then(
-            function(success2){
-              // needs to ensure no dupes in all tags
-              for(i=0; i<success2.length;i++){
-                var tag = success2[i];
-                if(success1.indexOf(tag) < 0){
-                  success1.push(tag);
-                }
-              }
-              $scope.allTags = success1;
-              $state.go(goToState);
-            },
-            function(failure){
-              alert("bad in offering " + failure)
-            })
+      Entity.distinctValues({variableName:['seeking_tags','offering_tags']}).$promise.then(
+        function(success){
+          $scope.allTags = success;
+          $state.go(goToState);
         },
         function(failure){
           alert("bad " + failure)
         }
       )
     }
+    
 
-
-     $scope.things = 12;
-
-    $scope.things = {};
-    $scope.things.xx = 1;
-    $scope.things.yy = 2;
-    $scope.things.z ;
-    $scope.adder = function(){
-      $scope.things.z = $scope.things.xx + $scope.things.yy
-    }
+     
   }]);

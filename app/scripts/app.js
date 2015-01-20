@@ -21,8 +21,7 @@ angular
     'base64',
     'ngMap',
     'ui.select',
-    'geneHiveServices',
-    'ligatorServices'
+    'geneHiveServices'
 
   ])
   .config(['$stateProvider',function($stateProvider) {
